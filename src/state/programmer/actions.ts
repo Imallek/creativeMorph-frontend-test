@@ -58,7 +58,7 @@ const AddProgrammer = (name: string) => {
     const filteredArray = filterProgrammerArray(name);
     const successPayload = {
       loader: false,
-      selectedProgrammersArray: filteredArray[0],
+      selectedProgrammersArray: { ...filteredArray[0] },
       isSecondTabOpen: true,
     };
     dispatch(requestSuccess(successPayload));
