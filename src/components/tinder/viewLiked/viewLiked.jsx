@@ -11,6 +11,7 @@ import { Grid } from '@material-ui/core';
 import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
 import Pagination from './pagination/pagination';
+import { connect } from 'react-redux';
 
 const useStyles = theme => ({
   grid: {
@@ -52,49 +53,51 @@ const useStyles = theme => ({
   },
 });
 
-const ViewLiked = ({ classes }) => {
-  let status = [
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: false,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: false,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: false,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-    {
-      photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-      LikedOrDisliked: true,
-    },
-  ];
+const ViewLiked = ({ classes, likesArray }) => {
+  let [status, setStatus] = useState(likesArray);
+  console.log(likesArray);
+  //   let status = [
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: false,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: false,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: false,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //     {
+  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
+  //       LikedOrDisliked: true,
+  //     },
+  //   ];
 
   return (
     <>
@@ -129,4 +132,10 @@ const ViewLiked = ({ classes }) => {
   );
 };
 
-export default withStyles(useStyles)(ViewLiked);
+const mapStateToProps = state => {
+  return {
+    likesArray: state.programmer.LikesArray,
+  };
+};
+
+export default connect(mapStateToProps, null)(withStyles(useStyles)(ViewLiked));

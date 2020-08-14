@@ -5,11 +5,13 @@ import {
   AddProgrammerActionTypes,
   ChangeProgrammerLevelActionTypes,
   GetListProgrammerActionTypes,
+  AddLikesActionTypes,
 } from './types';
 import { element } from 'prop-types';
 
 const defaultState: ProgrammerState = {
   programmersArray: [],
+  LikesArray: [],
   selectedProgrammersArray: [],
   isSecondTabOpen: false,
   loader: false,
@@ -50,13 +52,22 @@ export default function programmer(state = defaultState, action: any) {
       return {
         ...state,
         selectedProgrammersArray: [
-            ...state.selectedProgrammersArray.map(element => {
-              element.name === action.payload.name
-                ? (element.level = action.payload.level)
-                : '';
-              return element;
-            }),
-          ],
+          ...state.selectedProgrammersArray.map(element => {
+            element.name === action.payload.name ? (element.level = action.payload.level) : '';
+            return element;
+          }),
+        ],
+      };
+    case AddLikesActionTypes.ADD_LIKE:
+      console.log(action.payload);
+      return {
+        ...state,
+        LikesArray: [
+          ...state.LikesArray,
+          {
+            ...action.payload,
+          },
+        ],
       };
     default:
       return {

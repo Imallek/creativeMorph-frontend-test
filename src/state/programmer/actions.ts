@@ -5,6 +5,7 @@ import {
   ProgrammerState,
   RemoveProgrammerActionTypes,
   GetListProgrammerActionTypes,
+  AddLikesActionTypes,
 } from './types';
 import { Dispatch } from 'redux';
 import {
@@ -12,6 +13,10 @@ import {
   filterProgrammerArray,
   changeLevelOfProgrammer,
 } from './programmersArray';
+
+const AddLike = (payload: any) => {
+  return { type: AddLikesActionTypes.ADD_LIKE, payload };
+};
 
 const GetProgrammers = () => {
   return (dispatch: Dispatch) => {
@@ -79,4 +84,4 @@ const ChangeLevelValue = (payload: any) => {
     return { type: ChangeProgrammerLevelActionTypes.CHANGE_PROGRAMMER_LEVEL, payload };
   }
 };
-export default { GetProgrammers, AddProgrammer, RemoveProgrammer, ChangeLevelValue };
+export default { GetProgrammers, AddProgrammer, RemoveProgrammer, ChangeLevelValue, AddLike };

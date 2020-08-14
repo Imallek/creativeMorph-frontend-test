@@ -12,6 +12,9 @@ import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
+import { connect } from 'react-redux';
+import actionCreators from '../../state/programmer/actions';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = theme => ({
   grid: {
@@ -44,7 +47,7 @@ const useStyles = theme => ({
   },
 });
 
-const Tinder = ({ classes }) => {
+const Tinder = ({ classes, onAddLike }) => {
   let [userResponse, setUserResponse] = useState(false);
   let [liked, setLiked] = useState(null);
   let [imageUrl, setImageUrl] = useState(null);
@@ -86,20 +89,19 @@ const Tinder = ({ classes }) => {
     return fullName;
   };
 
-  const likeImageHandler = () => {
-    console.log('liked');
-    setLiked(true);
-    setUserResponse(prevState => !prevState);
-  };
-  const dislikeImageHandler = () => {
-    console.log('dislike');
-    setLiked(false);
+  const imageResponseHandler = response => {
+    console.log('liked/dislike');
+    onAddLike(imageUrl, response);
+    setLiked(response);
     setUserResponse(prevState => !prevState);
   };
 
   return (
     <>
-      <div className={styles.divs}>Tinder</div>
+      <div className={styles.divs}>
+        <h6>Tinder</h6>
+        <NavLink to={'/view-liked'}>Goto</NavLink>
+      </div>
       <Grid container className={classes.grid}>
         <Card className={classes.root}>
           <CardActionArea disabled>
@@ -117,11 +119,11 @@ const Tinder = ({ classes }) => {
             </CardContent>
           </CardActionArea>
           <CardActions className={classes.buttons}>
-            <Button onClick={likeImageHandler} size="small" color="primary">
+            <Button onClick={() => imageResponseHandler(true)} size="small" color="primary">
               <Check className={classes.likeIcon} />
               Like
             </Button>
-            <Button onClick={dislikeImageHandler} size="small" color="primary">
+            <Button onClick={() => imageResponseHandler(false)} size="small" color="primary">
               <Clear className={classes.dislikeIcon} />
               Dislike
             </Button>
@@ -132,4 +134,16 @@ const Tinder = ({ classes }) => {
   );
 };
 
-export default withStyles(useStyles)(Tinder);
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddLike: (imageUrl, response) =>
+      dispatch(
+        actionCreators.AddLike({
+          photoLink: imageUrl,
+          LikedOrDisliked: response,
+        }),
+      ),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(Tinder));
