@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom
 import AuthPage from './components/auth';
 import ViewProgrammers from './components/viewProgrammersList';
 import Tinder from './components/tinder/tinder';
+import ViewLiked from './components/tinder/viewLiked/viewLiked';
 import './App.css';
 
 interface Props {}
@@ -18,6 +19,7 @@ class App extends PureComponent<Props, State> {
           <Route exact path="/" component={AuthPage} />
           <Route exact path="/view-programmers" component={ViewProgrammers} />
           <Route exact path="/tinder" component={Tinder} />
+          <Route exact path="/view-liked" component={ViewLiked} />
           <div />
         </div>
       </Router>
