@@ -15,6 +15,7 @@ export interface Programmer {
 export interface Likes {
   photoLink: string;
   LikedOrDisliked: boolean;
+  breedName: string;
 }
 
 export enum AddProgrammerActionTypes {

@@ -69,12 +69,12 @@ const ViewLiked = ({ classes, likesArray }) => {
       <Grid container className={classes.grid}>
         {status.map(item => {
           return (
-            <Card className={classes.root}>
+            <Card key={item.breedName} className={classes.root}>
               <CardActionArea disabled>
                 <CardMedia className={classes.media} image={item.photoLink} alt="Dog" title="Dog" />
                 <CardContent className={classes.breedName}>
                   <Typography variant="h6" component="h6">
-                    Dog
+                    {item.breedName}
                   </Typography>
                 </CardContent>
               </CardActionArea>

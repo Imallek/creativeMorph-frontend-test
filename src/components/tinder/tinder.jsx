@@ -15,6 +15,7 @@ import Clear from '@material-ui/icons/Clear';
 import { connect } from 'react-redux';
 import actionCreators from '../../state/programmer/actions';
 import { NavLink } from 'react-router-dom';
+import getDogName from './utils';
 
 const useStyles = theme => ({
   grid: {
@@ -73,25 +74,9 @@ const Tinder = ({ classes, onAddLike }) => {
       });
   }, [userResponse]);
 
-  const getDogName = data => {
-    let breedNameData = data.message.split('/');
-    let breedName = breedNameData[breedNameData.length - 2].split('');
-    breedName[0] = breedName[0].toUpperCase();
-    breedName = breedName.join('');
-    let fullName = breedName;
-    let secondName = breedName.split('-')[1] ? breedName.split('-')[1].split('') : null;
-    if (secondName) {
-      secondName[0] = secondName[0].toUpperCase();
-      secondName = secondName.join('');
-      breedName = breedName.split('-')[0];
-      fullName = breedName.concat(',', secondName);
-    }
-    return fullName;
-  };
-
   const imageResponseHandler = response => {
     console.log('liked/dislike');
-    onAddLike(imageUrl, response);
+    onAddLike(imageUrl, response, dogBreed);
     setLiked(response);
     setUserResponse(prevState => !prevState);
   };
@@ -138,11 +123,12 @@ const Tinder = ({ classes, onAddLike }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddLike: (imageUrl, response) =>
+    onAddLike: (imageUrl, response, dogBreed) =>
       dispatch(
         actionCreators.AddLike({
           photoLink: imageUrl,
           LikedOrDisliked: response,
+          breedName: dogBreed,
         }),
       ),
   };
