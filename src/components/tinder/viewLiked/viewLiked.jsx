@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './viewLiked.module.css';
+import styles from '../tinder.module.css';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,6 +12,7 @@ import Check from '@material-ui/icons/Check';
 import Clear from '@material-ui/icons/Clear';
 import Pagination from './pagination/pagination';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = theme => ({
   grid: {
@@ -56,52 +57,15 @@ const useStyles = theme => ({
 const ViewLiked = ({ classes, likesArray }) => {
   let [status, setStatus] = useState(likesArray);
   console.log(likesArray);
-  //   let status = [
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: false,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: false,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: false,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //     {
-  //       photoLink: 'https://images.dog.ceo/breeds/eskimo/n02109961_2188.jpg',
-  //       LikedOrDisliked: true,
-  //     },
-  //   ];
 
   return (
     <>
-      <div className={styles.divs}>Tinder</div>
+      <Grid container className={styles.header}>
+        <h3 className={styles.title}>Tinder</h3>
+        <NavLink className={styles.linkStyles} to={'/tinder'}>
+          Like More
+        </NavLink>
+      </Grid>
       <Grid container className={classes.grid}>
         {status.map(item => {
           return (

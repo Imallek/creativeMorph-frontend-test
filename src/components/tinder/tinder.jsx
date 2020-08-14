@@ -98,10 +98,12 @@ const Tinder = ({ classes, onAddLike }) => {
 
   return (
     <>
-      <div className={styles.divs}>
-        <h6>Tinder</h6>
-        <NavLink to={'/view-liked'}>Goto</NavLink>
-      </div>
+      <Grid container className={styles.header}>
+        <h3 className={styles.title}>Tinder</h3>
+        <NavLink className={styles.linkStyles} to={'/view-liked'}>
+          View All Liked
+        </NavLink>
+      </Grid>
       <Grid container className={classes.grid}>
         <Card className={classes.root}>
           <CardActionArea disabled>

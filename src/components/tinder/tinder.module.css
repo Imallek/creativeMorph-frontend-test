@@ -1,4 +1,4 @@
-.divs {
+.header {
   background: rgb(34, 193, 195);
   background: radial-gradient(circle, rgba(34, 193, 195, 1) 0%, rgba(45, 253, 223, 1) 100%);
   color: white;
@@ -9,5 +9,28 @@
   font-weight: 500;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding-top: 6px;
-  padding-right: 20px;
+  padding-right: 25px;
+  padding-left: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+.linkStyles {
+  font-size: 15px;
+  text-decoration: none;
+  color: rgba(92, 74, 74, 0.418);
+  border: 1px solid forestgreen;
+  padding: 0;
+  border-radius: 50px;
+  padding-left: 7px;
+  padding-right: 7px;
+  display: flex;
+  align-items: center;
+}
+
+.linkStyles:hover {
+  text-decoration: none;
+}
+
+.title {
+  align-self: center;
 }
