@@ -53,15 +53,17 @@ const Tinder = ({ classes, onAddLike }) => {
   let [liked, setLiked] = useState(null);
   let [imageUrl, setImageUrl] = useState(null);
   let [dogBreed, setDogBreed] = useState('Dog');
+  let [enableResponse, setEnableResponse] = useState(false);
 
   useEffect(() => {
     setImageUrl(null);
+    setEnableResponse(false);
     fetch('https://dog.ceo/api/breeds/image/random')
       .then(response => response.json())
       .then(data => {
         if (data && data.status === 'success') {
           setLiked(null);
-          console.log(data.message);
+          setEnableResponse(true);
           setImageUrl(data.message);
           let fullName = getDogName(data);
           setDogBreed(
@@ -75,7 +77,6 @@ const Tinder = ({ classes, onAddLike }) => {
   }, [userResponse]);
 
   const imageResponseHandler = response => {
-    console.log('liked/dislike');
     onAddLike(imageUrl, response, dogBreed);
     setLiked(response);
     setUserResponse(prevState => !prevState);
@@ -106,11 +107,21 @@ const Tinder = ({ classes, onAddLike }) => {
             </CardContent>
           </CardActionArea>
           <CardActions className={classes.buttons}>
-            <Button onClick={() => imageResponseHandler(true)} size="small" color="primary">
+            <Button
+              disabled={enableResponse === false ? true : false}
+              onClick={() => imageResponseHandler(true)}
+              size="small"
+              color="primary"
+            >
               <Check className={classes.likeIcon} />
               Like
             </Button>
-            <Button onClick={() => imageResponseHandler(false)} size="small" color="primary">
+            <Button
+              disabled={enableResponse === false ? true : false}
+              onClick={() => imageResponseHandler(false)}
+              size="small"
+              color="primary"
+            >
               <Clear className={classes.dislikeIcon} />
               Dislike
             </Button>

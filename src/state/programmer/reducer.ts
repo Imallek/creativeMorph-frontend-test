@@ -59,7 +59,6 @@ export default function programmer(state = defaultState, action: any) {
         ],
       };
     case AddLikesActionTypes.ADD_LIKE:
-      console.log(action.payload);
       return {
         ...state,
         LikesArray: [

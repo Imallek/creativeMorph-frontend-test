@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../tinder.module.css';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -52,11 +52,24 @@ const useStyles = theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  noDogs: {
+    paddingTop: '150px',
+  },
 });
 
 const ViewLiked = ({ classes, likesArray }) => {
   let [status, setStatus] = useState(likesArray);
-  console.log(likesArray);
+  let [currentPage, setCurrentPage] = useState(1);
+  let [showItems, setShowItems] = useState([]);
+
+  let postsPerPage = 10;
+  let totalPages = Math.ceil(status.length / postsPerPage);
+
+  useEffect(() => {
+    let itemsToShowTo = currentPage * postsPerPage;
+    let itemsToShowFrom = itemsToShowTo - postsPerPage;
+    setShowItems(status.slice(itemsToShowFrom, itemsToShowTo));
+  }, [currentPage]);
 
   return (
     <>
@@ -67,31 +80,44 @@ const ViewLiked = ({ classes, likesArray }) => {
         </NavLink>
       </Grid>
       <Grid container className={classes.grid}>
-        {status.map(item => {
-          return (
-            <Card key={item.breedName} className={classes.root}>
-              <CardActionArea disabled>
-                <CardMedia className={classes.media} image={item.photoLink} alt="Dog" title="Dog" />
-                <CardContent className={classes.breedName}>
-                  <Typography variant="h6" component="h6">
-                    {item.breedName}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions className={classes.choice}>
-                {item.LikedOrDisliked ? (
-                  <Check className={classes.likeIcon} />
-                ) : (
-                  <Clear className={classes.dislikeIcon} />
-                )}
-              </CardActions>
-            </Card>
-          );
-        })}
+        {status.length === 0 ? (
+          <h3 className={classes.noDogs}>Like some of those dogs please!</h3>
+        ) : (
+          showItems.map((item, index) => {
+            return (
+              <Card key={item.breedName + index} className={classes.root}>
+                <CardActionArea disabled>
+                  <CardMedia
+                    className={classes.media}
+                    image={item.photoLink}
+                    alt="Dog"
+                    title="Dog"
+                  />
+                  <CardContent className={classes.breedName}>
+                    <Typography variant="h6" component="h6">
+                      {item.breedName}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions className={classes.choice}>
+                  {item.LikedOrDisliked ? (
+                    <Check className={classes.likeIcon} />
+                  ) : (
+                    <Clear className={classes.dislikeIcon} />
+                  )}
+                </CardActions>
+              </Card>
+            );
+          })
+        )}
       </Grid>
-      <Grid container className={classes.grid}>
-        <Pagination pages={10} active={3} />
-      </Grid>
+      {totalPages > 1 ? (
+        <Grid container className={classes.grid}>
+          <Pagination pages={totalPages} active={currentPage} selectPage={setCurrentPage} />
+        </Grid>
+      ) : (
+        ''
+      )}
     </>
   );
 };
