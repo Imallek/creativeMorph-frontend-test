@@ -86,7 +86,7 @@ const Tinder = ({ classes }) => {
 
   return (
     <>
-      <div className={styles.divs}>This is tinder</div>
+      <div className={styles.divs}>Tinder</div>
       <Grid container className={classes.grid}>
         <Card className={classes.root}>
           <CardActionArea disabled>
